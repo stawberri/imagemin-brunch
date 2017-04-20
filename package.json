@@ -1,0 +1,42 @@
+{
+  "name": "imagemin-brunch",
+  "version": "0.0.0",
+  "description": "Simple image minification for brunch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stawberri/imagemin-brunch.git"
+  },
+  "keywords": [
+    "brunch",
+    "brunchplugin",
+    "imagemin",
+    "image",
+    "photo",
+    "optimize",
+    "optimise",
+    "minify",
+    "minifier"
+  ],
+  "author": "Pudding <aideen@aideen.pw> (https://aideen.pw/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stawberri/imagemin-brunch/issues"
+  },
+  "homepage": "https://github.com/stawberri/imagemin-brunch#readme",
+  "dependencies": {
+    "imagemin": "^5.2.2",
+    "loggy": "^1.0.2",
+    "plur": "^2.1.2",
+    "pretty-bytes": "^4.0.2"
+  },
+  "optionalDependencies": {
+    "imagemin-gifsicle": "^5.1.0",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-optipng": "^5.2.1",
+    "imagemin-svgo": "^5.2.1"
+  }
+}
