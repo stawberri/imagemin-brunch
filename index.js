@@ -33,7 +33,7 @@ exports = module.exports = class {
     let newBytes = 0
 
     for(let asset of assets) {
-      if(!imageminPattern.test(asset.destinationPath)) continue;
+      if(!imageminPattern.test(asset.destinationPath)) continue
 
       promises.push(new Promise((res, rej) => {
         let data = Buffer.from(asset.compiled)
