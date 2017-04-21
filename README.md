@@ -15,9 +15,9 @@ $ brunch build --production
 There are currently no options you can specify, but I may add some optional ones in the future to give you finer control over how minification happens.
 
 ## Make sure you're in production mode
-Minifying images takes forever, so I marked this plugin as an optimizer. This means that it only runs when the optimize configuration setting is on (or you force it to run). If you haven't manually tweaked your plugin settings, this just means that you need to run brunch with the `--production` flag.
+Minifying images takes forever, so I marked this plugin as an optimizer. Your configuration settings decide if it runs or not. If you haven't manually tweaked `optimize` or `plugins.on`, you can ensure that this plugin runs by using the `--production` flag.
 
-If this is confusing, these commands are all be valid ways to ensure your images are minified:
+If this is confusing, these commands should minify your images on brunch's default settings:
 
 ```
 $ brunch b -p
@@ -26,4 +26,4 @@ $ brunch b --production
 $ brunch build --production
 ```
 
-With the default skeleton, `npm run build` should also work.
+If you are using the default skeleton, `npm run build` should also work.
