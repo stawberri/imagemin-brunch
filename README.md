@@ -12,12 +12,24 @@ $ brunch build --production
 18:06:53 - info: minified 9 images to save 334 kB in 5.3 sec
 ```
 
-There are currently no options you can specify, but I may add some optional ones in the future to give you finer control over how minification happens.
+
+## Supported formats
+This plugin detects images via file extensions, and supports the following:
+
+`.gif` `.jpg` `.jpeg` `.jpe` `.jif` `.jfif` `.jfi` `.png` `.svg` `.svgz`
+
+The actual minification process is performed by the following [imagemin plugins](https://www.npmjs.com/browse/keyword/imageminplugin):
+
+* [imagemin-gifsicle](https://www.npmjs.com/package/imagemin-gifsicle)
+* [imagemin-jpegtran](https://www.npmjs.com/package/imagemin-jpegtran)
+* [imagemin-optipng](https://www.npmjs.com/package/imagemin-optipng)
+* [imagemin-svgo](https://www.npmjs.com/package/imagemin-svgo)
+
+The plugins have their own configuration options, but imagemin-brunch currently just uses their defaults. I may expose their configuration objects and come up with a way for you to install and use your own plugins in the future.
+
 
 ## Make sure you're in production mode
-Minifying images takes forever, so I marked this plugin as an optimizer. Your configuration settings decide if it runs or not. If you haven't manually tweaked `optimize` or `plugins.on`, you can ensure that this plugin runs by using the `--production` flag.
-
-If this is confusing, these commands should minify your images on brunch's default settings:
+Minifying images takes forever, so I made this plugin an optimizer. By default, this plugin will run whenever brunch is in production mode. Any of these commands should work to minify your images:
 
 ```
 $ brunch b -p
