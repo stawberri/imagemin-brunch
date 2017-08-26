@@ -13,8 +13,8 @@ $ brunch build --production
 ```
 
 
-## Supported formats
-This plugin detects images via file extensions, and supports the following:
+## Built-in minification
+This plugin automatically minifies the following extensions, with no configuration required:
 
 `.gif` `.jpg` `.jpeg` `.jpe` `.jif` `.jfif` `.jfi` `.png` `.svg` `.svgz`
 
@@ -24,8 +24,6 @@ The actual minification process is performed by the following [imagemin plugins]
 * [imagemin-jpegtran](https://www.npmjs.com/package/imagemin-jpegtran)
 * [imagemin-optipng](https://www.npmjs.com/package/imagemin-optipng)
 * [imagemin-svgo](https://www.npmjs.com/package/imagemin-svgo)
-
-The plugins have their own configuration options, but imagemin-brunch currently just uses their defaults. I may expose their configuration objects and come up with a way for you to install and use your own plugins in the future.
 
 
 ## Make sure you're in production mode
@@ -39,3 +37,26 @@ $ brunch build --production
 ```
 
 If you are using the default skeleton, `npm run build` should also work.
+
+
+## Configuration
+
+```js
+plugins.imagemin = {
+  plugins: {
+    'imagemin-gifsicle': true,
+    'imagemin-jpegtran': true,
+    'imagemin-optipng': true,
+    'imagemin-svgo': true
+  },
+  pattern: /\.(gif|jpg|jpeg|jpe|jif|jfif|jfi|png|svg|svgz)$/
+}
+```
+
+### `plugins`
+To enable a new imagemin plugin, create a new key-value pair where the object key is the name of your plugin and give it a truthy value. If you would like to pass options into the plugin, provide an object as your pair's value.
+
+If you want to disable a plugin, add it to this object with a falsy value.
+
+### `pattern`
+This is a regular expression pattern used to figure out which files should be passed through to imagemin.

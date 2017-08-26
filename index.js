@@ -5,25 +5,42 @@ const plur = require('plur')
 const prettyBytes = require('pretty-bytes')
 
 const imageminPattern = /\.(gif|jpg|jpeg|jpe|jif|jfif|jfi|png|svg|svgz)$/
-const imageminPlugins = [
-  'gifsicle',
-  'jpegtran',
-  'optipng',
-  'svgo'
-]
-const plugins = []
-for(let plugin of imageminPlugins) {
-  try {
-    plugins.push(require('imagemin-' + plugin)())
-  } catch(err) {
-    loggy.warn(`Loading of ${plugin} failed due to`, err.message)
-  }
+const imageminPlugins = {
+  'imagemin-gifsicle': true,
+  'imagemin-jpegtran': true,
+  'imagemin-optipng': true,
+  'imagemin-svgo': true
 }
-if(!plugins.length) throw new Error('Loading of all imagemin plugins failed')
 
 exports = module.exports = class {
   constructor(config) {
     this.config = config.plugins.imagemin || {}
+
+    if(new Object(this.config.plugins) !== this.config.plugins)
+      this.config.plugins = {}
+    this.config.plugins = Object.assign(
+      {}, imageminPlugins, this.config.plugins
+    )
+    this.plugins = []
+    let pluginLoads = 0
+    for(let plugin in this.config.plugins) {
+      let options = this.config.plugins[plugin]
+      if(!options) continue
+      else pluginLoads++
+      try {
+        if(new Object(options) === options)
+          this.plugins.push(require(plugin)(options))
+        else
+          this.plugins.push(require(plugin)())
+      } catch(err) {
+        loggy.warn(`Loading of ${plugin} failed due to`, err.message)
+      }
+    }
+    if(!this.plugins.length && pluginLoads)
+      throw new Error('No imagemin plugins loaded')
+
+    if(!('pattern' in this.config)) this.config.pattern = imageminPattern
+    this.config.pattern = new RegExp(this.config.pattern)
   }
 
   onCompile(err, assets) {
@@ -33,13 +50,13 @@ exports = module.exports = class {
     let newBytes = 0
 
     for(let asset of assets) {
-      if(!imageminPattern.test(asset.destinationPath)) continue
+      if(!this.config.pattern.test(asset.destinationPath)) continue
 
       promises.push(new Promise((res, rej) => {
         let data = Buffer.from(asset.compiled)
         oldBytes += data.length
 
-        imagemin.buffer(data, {plugins}).then(buffer => {
+        imagemin.buffer(data, {plugins: this.plugins}).then(buffer => {
           newBytes += buffer.length
 
           fs.writeFile(asset.destinationPath, buffer, err => {
