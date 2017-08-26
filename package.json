@@ -1,6 +1,6 @@
 {
   "name": "imagemin-brunch",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Simple image minification for brunch",
   "main": "index.js",
   "scripts": {
