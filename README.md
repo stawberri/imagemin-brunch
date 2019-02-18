@@ -2,6 +2,7 @@
 simple image minification for brunch
 
 [![NPM](https://nodei.co/npm/imagemin-brunch.png?mini=true)](https://nodei.co/npm/imagemin-brunch/)
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 This is a super simple plug-and-play plugin that minifies your images with [imagemin](https://www.npmjs.com/package/imagemin).
 
